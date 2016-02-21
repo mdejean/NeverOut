@@ -12,12 +12,14 @@
 #include <unistd.h>
 #define NAME_MAX 100
 CloudConnection::CloudConnection() {
+	//maybe we should do some security stuff...
 
+	//nah
 }
 
 void CloudConnection::send(ScaleValue v) {
 	//zzzzzzzzz
-	system((std::string("wget " CLOUD_URL "/add_point/") + v.string()).c_str());
+	system((std::string("wget -O - " CLOUD_URL "/add_point/") + v.string()).c_str());
 }
 
 std::string CloudConnection::name() {

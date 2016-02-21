@@ -43,6 +43,7 @@ int main() {
 
 	bool picked_up = false;
 	int settle_delay = -1;
+	unsigned int i = 0;
 
 	while (running) {
 		ScaleValue current = scale.read();
@@ -66,6 +67,8 @@ int main() {
 			settle_delay = -1;
 			//then send it
 			cloud.send(current);
+		} else if (i % 512 == 0) { //send updates sometimes
+			cloud.send(current);
 		}
 
 		if (full_button.pressed()) {
@@ -84,9 +87,13 @@ int main() {
 			warn = false;
 		}
 
+
+
 		display.write(full, empty, current, rate, picked_up, warn, go_at_percent.value());
 		scale.wait();
-	}
 
+		i++;
+	}
+	std::cout << "exiting gracefully" << std::endl;
 	return 0;
 }
