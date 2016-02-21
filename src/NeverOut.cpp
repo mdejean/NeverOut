@@ -18,10 +18,10 @@
 #define PICKUP (-10)
 #define DROP (10)
 
-static volatile bool running = 1;
+static volatile bool running = true;
 
 void sigint_handler(int s) {
-	running = 0;
+	running = false;
 }
 
 int main() {
