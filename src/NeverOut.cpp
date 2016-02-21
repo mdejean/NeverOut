@@ -14,9 +14,9 @@
 
 #include "Config.h"
 
-#define HISTORY_LENGTH 50
-#define PICKUP (100)
-#define DROP (-100)
+#define HISTORY_LENGTH 5
+#define PICKUP (10)
+#define DROP (-10)
 
 static volatile bool running = 1;
 
@@ -28,7 +28,7 @@ int main() {
 	signal(SIGINT, sigint_handler);
 
 	std::deque<ScaleValue> prev;
-	ScaleValue full, empty;
+	ScaleValue full(10), empty;
 	ScaleRate rate;
 
 	Scale scale;
@@ -54,7 +54,7 @@ int main() {
 		int settle_delay = -1;
 		if (rate > DROP) {
 			//drop
-			settle_delay = 50;
+			settle_delay = 5;
 		}
 		if (settle_delay > 0) {
 			settle_delay--;
@@ -63,7 +63,6 @@ int main() {
 			picked_up = false;
 			settle_delay = -1;
 			cloud.send(current);
-			//send drop to cloud
 		}
 		//main loop
 		if (full_button.pressed()) {
