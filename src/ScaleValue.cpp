@@ -38,7 +38,7 @@ bool ScaleValue::operator>(const ScaleValue& other) const {
 
 std::string ScaleValue::string() {
 	std::stringstream ss;
-	ss << std::fixed << std::setprecision(1) << value * 0.1;
+	ss << value;
 	return ss.str();
 }
 
