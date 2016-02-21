@@ -15,8 +15,8 @@
 #include "Config.h"
 
 #define HISTORY_LENGTH 5
-#define PICKUP (-10)
-#define DROP (10)
+#define PICKUP (-200)
+#define DROP (200)
 
 static volatile bool running = true;
 
@@ -28,7 +28,7 @@ int main() {
 	signal(SIGINT, sigint_handler);
 
 	std::deque<ScaleValue> prev;
-	ScaleValue full(10), empty;
+	ScaleValue full(500), empty;
 	ScaleRate rate;
 
 	Scale scale;
