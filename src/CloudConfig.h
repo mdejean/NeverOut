@@ -8,6 +8,6 @@
 #ifndef CLOUDCONFIG_H_
 #define CLOUDCONFIG_H_
 
-#define CLOUD_URL "http://marceldejean.com"
+#define CLOUD_URL "https://neveroutbackend.herokuapp.com"
 
 #endif /* CLOUDCONFIG_H_ */
