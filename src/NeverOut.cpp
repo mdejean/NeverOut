@@ -41,7 +41,7 @@ int main() {
 		prev.push_front(scale.read());
 	}
 
-	bool picked_up = false;
+	int picked_up = 0;
 	int settle_delay = -1;
 	unsigned int i = 0;
 
@@ -52,12 +52,17 @@ int main() {
 		rate = ScaleValue::get_rate(prev);
 
 		if (rate < PICKUP) {
-			picked_up = true;
+			picked_up = 200;
 		}
+
+		if (picked_up) {
+			picked_up--;
+		}
+
 
 		//wait after drop for value to stabilize
 		if (rate > DROP) {
-			settle_delay = 5;
+			settle_delay = 10;
 		}
 		if (settle_delay > 0) {
 			settle_delay--;
@@ -67,16 +72,18 @@ int main() {
 			settle_delay = -1;
 			//then send it
 			cloud.send(current);
-		} else if (i % 512 == 0) { //send updates sometimes
+		} else if (i % 256 == 0 && !picked_up && current > empty) { //send updates sometimes
 			cloud.send(current);
 		}
 
 		if (full_button.pressed()) {
 			full = scale.read();
+			cloud.send_full(full);
 			full_button.clear();
 		}
 		if (empty_button.pressed()) {
 			empty = scale.read();
+			cloud.send_empty(empty);
 			empty_button.clear();
 		}
 		bool warn = false;

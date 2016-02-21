@@ -16,6 +16,10 @@ public:
 	CloudConnection();
 	//send a new datapoint so the good numerical differentiation can do its thing
 	void send(ScaleValue v);
+	//send the empty reading
+	void send_empty(ScaleValue v);
+	//send the full reading
+	void send_full(ScaleValue v);
 	//ask the cloud what we're actually measuring
 	std::string name();
 };

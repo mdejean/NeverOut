@@ -17,9 +17,21 @@ CloudConnection::CloudConnection() {
 	//nah
 }
 
+void go(std::string command) {
+	system((std::string("wget -O - " CLOUD_URL) + command).c_str());
+}
+
 void CloudConnection::send(ScaleValue v) {
 	//zzzzzzzzz
-	system((std::string("wget -O - " CLOUD_URL "/add_point/") + v.string()).c_str());
+	go(std::string("/add_point/") + v.string());
+}
+
+void CloudConnection::send_empty(ScaleValue v) {
+	go(std::string("/set_empty/") + v.string());
+}
+
+void CloudConnection::send_full(ScaleValue v) {
+	go(std::string("/set_full/") + v.string());
 }
 
 std::string CloudConnection::name() {
