@@ -1,5 +1,6 @@
 #include <deque>
 #include <type_traits>
+#include <iostream>
 #include <signal.h>
 
 #include "ScaleValue.h"
@@ -9,7 +10,6 @@
 #include "Pot.h"
 #include "Button.h"
 #include "Display.h"
-
 #include "CloudConnection.h"
 
 #include "Config.h"
@@ -30,6 +30,7 @@ int main() {
 	std::deque<ScaleValue> prev;
 	ScaleValue full(500), empty;
 	ScaleRate rate;
+	std::string name("");
 
 	Scale scale;
 	Display display;
@@ -74,6 +75,7 @@ int main() {
 			cloud.send(current);
 		} else if (i % 256 == 0 && !picked_up && current > empty) { //send updates sometimes
 			cloud.send(current);
+			name = cloud.name();
 		}
 
 		if (full_button.pressed()) {
@@ -95,8 +97,7 @@ int main() {
 		}
 
 
-
-		display.write(full, empty, current, rate, picked_up, warn, go_at_percent.value());
+		display.write(full, empty, current, rate, picked_up, warn, go_at_percent.value(), name);
 		scale.wait();
 
 		i++;

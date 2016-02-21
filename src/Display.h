@@ -18,7 +18,7 @@ class Display {
 public:
 	Display();
 	~Display();
-	void write(ScaleValue f, ScaleValue e, ScaleValue cur, ScaleRate r, bool p, bool w, float warn_p);
+	void write(ScaleValue f, ScaleValue e, ScaleValue cur, ScaleRate r, bool p, bool w, float warn_p, const std::string& name);
 };
 
 #endif /* DISPLAY_H_ */
