@@ -10,6 +10,8 @@
 #include "Button.h"
 #include "Display.h"
 
+#include "CloudConnection.h"
+
 #include "Config.h"
 
 #define HISTORY_LENGTH 50
@@ -34,6 +36,7 @@ int main() {
 	Pot go_at_percent(WARN_POT);
 	Button full_button(FULL_BUTTON);
 	Button empty_button(EMPTY_BUTTON);
+	CloudConnection cloud;
 	for (int i = 0; i < HISTORY_LENGTH; i++) {
 		prev.push_front(scale.read());
 	}
@@ -59,6 +62,7 @@ int main() {
 		if (settle_delay == 0) {
 			picked_up = false;
 			settle_delay = -1;
+			cloud.send(current);
 			//send drop to cloud
 		}
 		//main loop
