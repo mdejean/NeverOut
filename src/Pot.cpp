@@ -10,6 +10,6 @@
 Pot::Pot(int pin) : input(pin) { }
 
 float Pot::value() {
-	return input.abs_value();
+	return input.abs_value()/-1024.0;
 }
 
