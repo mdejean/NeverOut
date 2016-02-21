@@ -26,7 +26,7 @@ ScaleRate ScaleValue::get_rate(const std::deque<ScaleValue>& hist) {
 	for (auto p = hist.rbegin(); p != hist.rend(); p++) {
 		backward = backward * (1-SM) + SM * (double)p->value;
 	}
-	return (backward - forward)/(hist.size() * DT);
+	return (forward - backward)/(hist.size() * DT);
 }
 
 bool ScaleValue::operator<(const ScaleValue& other) const {
@@ -38,7 +38,7 @@ bool ScaleValue::operator>(const ScaleValue& other) const {
 
 std::string ScaleValue::string() {
 	std::stringstream ss;
-	ss << std::fixed << std::setprecision(2) << value * 0.1;
+	ss << std::fixed << std::setprecision(1) << value * 0.1;
 	return ss.str();
 }
 

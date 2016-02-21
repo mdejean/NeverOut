@@ -21,7 +21,9 @@ public:
 	bool operator>(const ScaleValue& v) const;
 	std::string string();
 	std::string stringWithUnits();
+	//linear interpolation between a and b (0 < c < 1)
 	static ScaleValue interpolate(ScaleValue a, ScaleValue b, float c);
+	//estimate derivative of d (most recent first)
 	static ScaleRate get_rate(const std::deque<ScaleValue>& d);
 };
 

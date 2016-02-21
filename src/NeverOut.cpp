@@ -15,8 +15,8 @@
 #include "Config.h"
 
 #define HISTORY_LENGTH 5
-#define PICKUP (10)
-#define DROP (-10)
+#define PICKUP (-10)
+#define DROP (10)
 
 static volatile bool running = 1;
 
@@ -41,19 +41,21 @@ int main() {
 		prev.push_front(scale.read());
 	}
 
+	bool picked_up = false;
+	int settle_delay = -1;
+
 	while (running) {
 		ScaleValue current = scale.read();
 		prev.pop_back();
 		prev.push_front(current);
 		rate = ScaleValue::get_rate(prev);
-		bool picked_up = false;
+
 		if (rate < PICKUP) {
 			picked_up = true;
-			//pickup
 		}
-		int settle_delay = -1;
+
+		//wait after drop for value to stabilize
 		if (rate > DROP) {
-			//drop
 			settle_delay = 5;
 		}
 		if (settle_delay > 0) {
@@ -62,14 +64,17 @@ int main() {
 		if (settle_delay == 0) {
 			picked_up = false;
 			settle_delay = -1;
+			//then send it
 			cloud.send(current);
 		}
-		//main loop
+
 		if (full_button.pressed()) {
 			full = scale.read();
+			full_button.clear();
 		}
 		if (empty_button.pressed()) {
 			empty = scale.read();
+			empty_button.clear();
 		}
 		bool warn = false;
 		if (!picked_up && current <
