@@ -19,10 +19,13 @@ Display::~Display() {
 }
 
 void Display::write(ScaleValue f, ScaleValue e, ScaleValue cur, ScaleRate r, bool p, bool w, float warn_p) {
-	//TODO
+	display.clear();
 	std::stringstream ss;
 	ss << cur.stringWithUnits();
-	ss << " (" << f.string() << "-" << e.string() << ") @" << r << "\n";
+	ss << " (" << f.string() << "-" << e.string() << ") @" << r;
+	display.setCursor(0, 0);
+	display.write(ss.str());
+	ss.str("");
 	if (p) {
 		ss << "picked up ";
 	}
@@ -30,5 +33,6 @@ void Display::write(ScaleValue f, ScaleValue e, ScaleValue cur, ScaleRate r, boo
 		ss << "low ";
 	}
 	ss << ScaleValue::interpolate(e, f, warn_p).string();
+	display.setCursor(1, 0);
 	display.write(ss.str());
 }
