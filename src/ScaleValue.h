@@ -17,8 +17,8 @@ class ScaleValue {
 public:
 	ScaleValue() : value(0) {};
 	ScaleValue(int counts);
-	bool operator<(const ScaleValue& v);
-	bool operator>(const ScaleValue& v);
+	bool operator<(const ScaleValue& v) const;
+	bool operator>(const ScaleValue& v) const;
 	std::string string();
 	std::string stringWithUnits();
 	static ScaleValue interpolate(ScaleValue a, ScaleValue b, float c);
