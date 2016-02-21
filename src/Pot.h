@@ -13,7 +13,6 @@ class Pot {
 	upm::GroveRotary input;
 public:
 	Pot(int pin);
-	~Pot();
 	//value from 0-1
 	float value();
 };
