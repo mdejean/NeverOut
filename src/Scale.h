@@ -7,9 +7,11 @@
 
 #ifndef SCALE_H_
 #define SCALE_H_
+#include <mraa.hpp>
 #include "ScaleValue.h"
 
 class Scale {
+	mraa::Aio adc;
 public:
 	Scale();
 	~Scale();
