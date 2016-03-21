@@ -12,20 +12,11 @@ local.properties
 Debug/
 Release/
 
-# Eclipse Core
-.project
-
 # External tool builders
 .externalToolBuilders/
 
-# Locally stored "Eclipse launch configurations"
-*.launch
-
 # PyDev specific (Python IDE for Eclipse)
 *.pydevproject
-
-# CDT-specific (C/C++ Development Tooling)
-.cproject
 
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
